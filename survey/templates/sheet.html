@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="mb-3">Sheet</h1>
+
+    <table id="survey-table" class="table">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                    <th>{{ header.capitalize() }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% for entry in entries %}
+            <tr>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.house }}</td>
+                <td>{{ entry.position }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% if not entries %}
+        <p>No surveys yet.</p>
+    {% endif %}
+
+    <!-- Credit for the following 3 scripts: https://datatables.net/examples/styling/bootstrap4 -->
+    <script>
+        $(document).ready(function() {
+            $('#survey-table').DataTable();
+        });
+    </script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+{% endblock %}

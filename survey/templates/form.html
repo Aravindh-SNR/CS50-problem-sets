@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- http://getbootstrap.com/docs/4.1/content/typography/ -->
+    <h1 class="mb-3">Form</h1>
+
+    <!-- http://getbootstrap.com/docs/4.1/components/forms/ -->
+    <form action="/form" method="post">
+
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Name" required autocomplete="off" autofocus>
+        </div>
+
+        <div class="form-group">
+            <select name="house" required>
+                <option disabled selected value="">House</option>
+                <option value="Gryffindor">Gryffindor</option>
+                <option value="Hufflepuff">Hufflepuff</option>
+                <option value="Ravenclaw">Ravenclaw</option>
+                <option value="Slytherin">Slytherin</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="position" id="position1" value="Beater" required>
+                <label class="form-check-label" for="position1">Beater</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="position" id="position2" value="Chaser" required>
+                <label class="form-check-label" for="position2">Chaser</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="position" id="position3" value="Keeper" required>
+                <label class="form-check-label" for="position3">Keeper</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="position" id="position4" value="Seeker" required>
+                <label class="form-check-label" for="position4">Seeker</label>
+            </div>
+        </div>
+
+        <!-- http://getbootstrap.com/docs/4.1/components/buttons/ -->
+        <button class="btn btn-primary" type="submit">Submit</button>
+
+    </form>
+
+    <script>
+
+        // Set custom validation message for name input field
+        const nameField = document.getElementsByName('name')[0];
+        nameField.oninvalid = function(event) {
+            setInvalidMessage(event, 'Please enter your name.');
+        };
+        nameField.oninput = setValidMessage;
+
+        // Set custom validation message for house drop-down menu
+        const houseField = document.getElementsByName('house')[0];
+        houseField.oninvalid = function(event) {
+            setInvalidMessage(event, 'Please select your house.');
+        };
+        houseField.onchange = setValidMessage;
+
+        // Set custom validation message for position radio buttons
+        const positionField = document.getElementsByName('position');
+        positionField[0].oninvalid = function(event) {
+                setInvalidMessage(event, 'Please choose any one Quidditch position.');
+            };
+        for (field of positionField) {
+            field.onclick = function() {
+                positionField[0].setCustomValidity('');
+            };
+        }
+
+        // Function to set custom invalid message
+        function setInvalidMessage(event, message) {
+            event.target.setCustomValidity(message);
+        }
+
+        // Function to clear custom invalid message
+        function setValidMessage(event) {
+            event.target.setCustomValidity('');
+        }
+
+    </script>
+
+{% endblock %}

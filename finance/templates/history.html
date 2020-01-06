@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Transaction Type</th>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Number of Shares</th>
+                <th>Transaction Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item["type"] }}</td>
+                    <td>{{ item["stock"] }}</td>
+                    <td>{{ item["price"] | usd }}</td>
+                    <td>{{ item["shares"] }}</td>
+                    <td>{{ item["transaction_date"] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not data %}
+        <p>No history yet.</p>
+    {% endif %}
+{% endblock %}

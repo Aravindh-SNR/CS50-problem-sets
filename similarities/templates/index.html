@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="col">
+        <form action="/compare" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <label>File 1</label><br>
+                <input type="file" name="file1" required>
+            </div>
+            <div class="form-group">
+                <label>File 2</label><br>
+                <input type="file" name="file2" required>
+            </div>
+            <div class="form-group">
+                <label>Algorithm</label><br>
+                <select name="algorithm" id="algo-menu" required>
+                    <option disabled selected value="">Select</option>
+                    <option value="lines">Lines</option>
+                    <option value="sentences">Sentences</option>
+                    <option value="substrings">Substrings</option>
+                </select>
+            </div>
+            <div class="form-group" id="substr-length" hidden>
+                <label>Substring Length</label><br>
+                <input type="number" name="length" min="1">
+            </div>
+            <input type="submit" value="Compare" class="btn btn-primary">
+        </form>
+    </div>
+
+    <script>
+        // Algorithm drop-down menu
+        const algoMenu = document.getElementById('algo-menu');
+
+        // Substring length div and input field
+        const substrLength = document.getElementById('substr-length');
+        const lengthInput = document.querySelector('#substr-length input');
+
+        // Displaying or hiding substring length input field based on the algorithm selected
+        algoMenu.onchange = function() {
+            if (algoMenu.value === 'substrings') {
+                substrLength.hidden = false;
+                lengthInput.required = true;
+            } else {
+                substrLength.hidden = true;
+                lengthInput.required = false;
+            }
+        };
+    </script>
+
+{% endblock %}

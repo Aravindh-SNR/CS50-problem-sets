@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item["stock"] }}</td>
+                    <td>{{ item["name"] }}</td>
+                    <td>{{ item["shares"] }}</td>
+                    <td>{{ item["price"] | usd }}</td>
+                    <td>{{ item["total"] | usd }}</td>
+                </tr>
+            {% endfor %}
+            {% if not data %}
+                <tr>
+                    <td colspan="5">No shares owned at the moment.</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>CASH</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ cash | usd }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>{{ total | usd }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
